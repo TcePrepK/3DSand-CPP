@@ -36,7 +36,7 @@ private:
 
     Vector3D position = Vector3D();
     float angleAroundPlayer = 211;
-    float zoomLevel = 200;
+    float zoomLevel = 1000;
     float desiredZoomLevel = zoomLevel;
     float pitch = 25;
     float yaw = 331;

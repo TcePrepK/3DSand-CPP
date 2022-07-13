@@ -14,6 +14,8 @@ uniform bool columnCheck;
 uniform int scale;
 uniform float sigma;
 
+uniform bool dramaticZoom;
+
 layout (location = 0) out vec3 outColor;
 
 #define maxDistance 500
@@ -43,6 +45,13 @@ float calculateWeight(in vec3 mainHitPos, in vec3 mainNormal, in vec3 offsetHitP
 
 void main(void) {
     const vec2 mainPixel = gl_FragCoord.xy / resolution;
+
+    if (dramaticZoom && abs(mainPixel.y - 0.5) > 0.4) {
+        outColor = vec3(0);
+
+        return;
+    }
+
     const ivec3 mainNormal = ivec3(texture(normalAttachment, mainPixel).rgb);
 
     const float mainDepth = texture(depthAttachment, mainPixel).r;

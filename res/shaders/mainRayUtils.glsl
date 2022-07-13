@@ -186,7 +186,7 @@ void DDA(inout Ray ray, inout HitRecord record) {
     vec3 tS = rayInverse * vec3(stepDir);
 
     int hitId = 0;
-    while (record.distance < fartestTime - off) {
+    while (record.distance < fartestTime - off && record.distance < maxDistance) {
         ivec3 chunkPos = ivec3(gridCoords / 32);
         uint chunkIDX = chunkPos.x + (chunkPos.y * chunkScale.x) + (chunkPos.z * chunkScale.x * chunkScale.y);
         vec3 chunkOffset = gridCoords % 32 / 32.0;
@@ -195,7 +195,7 @@ void DDA(inout Ray ray, inout HitRecord record) {
 
         int jumpAmount = jumpChunk ? 32 : bitmaskSize;
         int bitmask = int(texture(sampler3D(bitmaskBuffer.textures[chunkIDX]), chunkOffset).r * 255);
-        if (jumpChunk || bitmask == 0) {
+        if (false && (jumpChunk || bitmask == 0)) {
             if (isRenderingBitmask) {
                 if (testForBorder(ray, record.distance, stepDir * jumpAmount)) {
                     ray.color *= vec3(0.6);

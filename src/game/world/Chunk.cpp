@@ -13,7 +13,6 @@ Chunk::Chunk() {
 
 Chunk::Chunk(int x, int y, int z) {
     chunkPos = Vector3D(x, y, z) * mapChunkSize;
-
 }
 
 void generateMandelBulb(Chunk &chunk) {
@@ -142,9 +141,14 @@ void Chunk::buildTheChunk() {
     }
 
     isBuild = true;
+    updateAllBuffers = true;
+
+    testImageTest = TextureManager::create3DTexture(
+            mapChunkSize, mapChunkSize, mapChunkSize,
+            GL_R8, GL_RED, GL_UNSIGNED_BYTE, nullptr);
 
 //    generateSponge(*this);
-    generateMandelBulb(*this);
+//    generateMandelBulb(*this);
 }
 
 void Chunk::updateBuffers() {
@@ -154,17 +158,17 @@ void Chunk::updateBuffers() {
 
     updateAllBuffers = false;
 
-    const unsigned int voxelID = voxelImageBuffer.getID();
-    const unsigned int bitmaskID = bitmaskImageBuffer.getID();
-    glDeleteTextures(1, &voxelID);
-    glDeleteTextures(1, &bitmaskID);
+//    const unsigned int voxelID = voxelImageBuffer.getID();
+//    const unsigned int bitmaskID = bitmaskImageBuffer.getID();
+//    glDeleteTextures(1, &voxelID);
+//    glDeleteTextures(1, &bitmaskID);
 
     if (isEmpty()) {
         return;
     }
 
-    voxelImageBuffer.create(grid);
-    bitmaskImageBuffer.create(bitGrid);
+//    voxelImageBuffer.create(grid);
+//    bitmaskImageBuffer.create(bitGrid);
 }
 
 void Chunk::setElement(const int x, const int y, const int z, const Element &element) {

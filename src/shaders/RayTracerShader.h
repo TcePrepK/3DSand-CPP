@@ -29,6 +29,7 @@ private:
     int bitmaskSize{};
     int lightBounceAmount{};
 
+    int maxDistance{};
     int chunkScale{};
 
 public:
@@ -37,6 +38,8 @@ public:
     void loadResolutions() const;
 
     void loadCameraVariables() const;
+
+    void loadMaxDistance(int num) const;
 
     void loadChunkScale() const;
 

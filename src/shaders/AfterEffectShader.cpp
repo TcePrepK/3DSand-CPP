@@ -10,6 +10,8 @@ AfterEffectShader::AfterEffectShader() : BasicShader("res/shaders/afterEffectVer
     columnCheck = getUniformLocation("columnCheck");
     scale = getUniformLocation("scale");
     sigma = getUniformLocation("sigma");
+
+    dramaticZoom = getUniformLocation("dramaticZoom");
 }
 
 void AfterEffectShader::loadResolution() const {
@@ -24,3 +26,8 @@ void AfterEffectShader::loadVariables(int _scale, float _sigma) const {
     loadInt(scale, _scale);
     loadFloat(sigma, _sigma);
 }
+
+void AfterEffectShader::doDramaticZoom(bool value) const {
+    loadBoolean(dramaticZoom, value);
+}
+

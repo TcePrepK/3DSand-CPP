@@ -26,6 +26,7 @@ RayTracerShader::RayTracerShader() : BasicShader("res/shaders/mainVertex.glsl",
     bitmaskSize = getUniformLocation("bitmaskSize");
     lightBounceAmount = getUniformLocation("lightBounceAmount");
 
+    maxDistance = getUniformLocation("maxDistance");
     chunkScale = getUniformLocation("chunkScale");
 }
 
@@ -36,15 +37,19 @@ void RayTracerShader::loadResolutions() const {
 }
 
 void RayTracerShader::loadCameraVariables() const {
-    const Vector3D worldScale = Vector3D(2 * (int) GlobalVariables.chunkViewDistance * (int) Chunk::mapChunkSize);
+    const Vector3D worldScale = GlobalVariables.chunkManager.getWorldScaleByChunks() * Chunk::mapChunkSize;
     loadMatrix(viewMatrix, GlobalVariables.camera.getViewMatrix());
     load3DVector(lookFrom, GlobalVariables.camera.getPosition());
     load3DVector(lookTo, worldScale / 2);
     load3DVector(textureScale, worldScale);
 }
 
+void RayTracerShader::loadMaxDistance(int num) const {
+    loadInt(maxDistance, num);
+}
+
 void RayTracerShader::loadChunkScale() const {
-    load3DIVector(chunkScale, Vector3D((int) GlobalVariables.chunkViewDistance * 2));
+    load3DIVector(chunkScale, Vector3D(GlobalVariables.chunkManager.getWorldScaleByChunks()));
 }
 
 void RayTracerShader::loadOldVariables() const {

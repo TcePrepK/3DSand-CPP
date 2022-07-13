@@ -2,8 +2,8 @@
 // Created by Shrimp on 6/14/2022.
 //
 
-#ifndef INC_3DSAND_COMPUTESHADERS_H
-#define INC_3DSAND_COMPUTESHADERS_H
+#ifndef INC_3DSAND_COMPUTESHADER_H
+#define INC_3DSAND_COMPUTESHADER_H
 
 
 #include <string>
@@ -12,14 +12,14 @@
 #include "../utils/Vector3D.h"
 #include "glm/gtc/type_ptr.hpp"
 
-class ComputeShaders {
+class ComputeShader {
 private:
     unsigned int programID;
 
     unsigned int computeShaderID;
 
 public:
-    explicit ComputeShaders(const char *computeFile);
+    explicit ComputeShader(const char *computeFile);
 
     void start() const;
 
@@ -30,7 +30,7 @@ public:
     void loadTexture(const std::string &, unsigned int pos) const;
 
 private:
-    static unsigned int loadShader(const char *filePath, unsigned int type);
+    static unsigned int loadShader(const char *filePath);
 
     static std::string
     shaderReader(std::string &baseContent, const std::string &filePath, std::vector<std::string> &includeList);
@@ -54,4 +54,4 @@ protected:
 };
 
 
-#endif //INC_3DSAND_COMPUTESHADERS_H
+#endif //INC_3DSAND_COMPUTESHADER_H

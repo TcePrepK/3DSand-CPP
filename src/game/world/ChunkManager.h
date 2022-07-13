@@ -63,6 +63,8 @@ public:
     std::vector<Chunk *> &getChunkGenerateList();
 
     const std::vector<std::optional<Chunk>> &getChunkList() const;
+
+    Vector3D getWorldScaleByChunks() const;
 };
 
 

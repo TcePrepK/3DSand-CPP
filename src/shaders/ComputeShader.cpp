@@ -5,13 +5,13 @@
 #include <iostream>
 #include <fstream>
 #include <regex>
-#include "ComputeShaders.h"
+#include "ComputeShader.h"
 #include "glad/glad.h"
 
-ComputeShaders::ComputeShaders(const char *computeFile) {
+ComputeShader::ComputeShader(const char *computeFile) {
     std::cout << "Creating a shader!" << std::endl;
 
-    computeShaderID = loadShader(computeFile, GL_COMPUTE_SHADER);
+    computeShaderID = loadShader(computeFile);
 
     programID = glCreateProgram();
     glAttachShader(programID, computeShaderID);
@@ -19,28 +19,28 @@ ComputeShaders::ComputeShaders(const char *computeFile) {
     glValidateProgram(programID);
 }
 
-void ComputeShaders::start() const {
+void ComputeShader::start() const {
     glUseProgram(programID);
 }
 
-void ComputeShaders::stop() {
+void ComputeShader::stop() {
     glUseProgram(0);
 }
 
-void ComputeShaders::cleanUp() const {
+void ComputeShader::cleanUp() const {
     stop();
     glDetachShader(programID, computeShaderID);
     glDeleteShader(computeShaderID);
     glDeleteProgram(programID);
 }
 
-unsigned int ComputeShaders::loadShader(const char *filePath, const unsigned int type) {
+unsigned int ComputeShader::loadShader(const char *filePath) {
     std::string shaderSourceStr{};
     std::vector<std::string> includeList{};
     shaderReader(shaderSourceStr, filePath, includeList);
     const char *shaderSource = shaderSourceStr.c_str();
 
-    const unsigned int shaderID = glCreateShader(type);
+    const unsigned int shaderID = glCreateShader(GL_COMPUTE_SHADER);
     glShaderSource(shaderID, 1, &shaderSource, nullptr);
     glCompileShader(shaderID);
 
@@ -52,7 +52,7 @@ unsigned int ComputeShaders::loadShader(const char *filePath, const unsigned int
 
         std::vector<GLchar> errorLog(logLength);
         glGetShaderInfoLog(shaderID, logLength, &logLength, errorLog.data());
-        std::cout << "Failed to compile " << (type == GL_VERTEX_SHADER ? "Vertex" : "Fragment") << " Shader!"
+        std::cout << "Failed to compile Compute Shader!"
                   << std::endl;
         std::cout << errorLog.data() << std::endl;
 
@@ -63,8 +63,8 @@ unsigned int ComputeShaders::loadShader(const char *filePath, const unsigned int
     return shaderID;
 }
 
-std::string ComputeShaders::shaderReader(std::string &baseContent, const std::string &filePath,
-                                         std::vector<std::string> &includeList) {
+std::string ComputeShader::shaderReader(std::string &baseContent, const std::string &filePath,
+                                        std::vector<std::string> &includeList) {
     std::ifstream fileStream("../" + filePath, std::ios::in);
 
     if (!fileStream.is_open()) {
@@ -105,38 +105,38 @@ std::string ComputeShaders::shaderReader(std::string &baseContent, const std::st
     return baseContent;
 }
 
-int ComputeShaders::getUniformLocation(const char *uniformName) const {
+int ComputeShader::getUniformLocation(const char *uniformName) const {
     return glGetUniformLocation(programID, uniformName);
 }
 
-void ComputeShaders::loadFloat(const int location, const float value) {
+void ComputeShader::loadFloat(const int location, const float value) {
     glUniform1f(location, value);
 }
 
-void ComputeShaders::loadInt(const int location, const int value) {
+void ComputeShader::loadInt(const int location, const int value) {
     glUniform1i(location, value);
 }
 
-void ComputeShaders::load2DVector(const int location, const Vector2D vec) {
+void ComputeShader::load2DVector(const int location, const Vector2D vec) {
     glUniform2f(location, vec.x, vec.y);
 }
 
-void ComputeShaders::load3DVector(const int location, const Vector3D vector) {
+void ComputeShader::load3DVector(const int location, const Vector3D vector) {
     glUniform3f(location, vector.x, vector.y, vector.z);
 }
 
-void ComputeShaders::load3DIVector(const int location, const Vector3D vector) {
+void ComputeShader::load3DIVector(const int location, const Vector3D vector) {
     glUniform3i(location, (int) vector.x, (int) vector.y, (int) vector.z);
 }
 
-void ComputeShaders::loadBoolean(const int location, const bool value) {
+void ComputeShader::loadBoolean(const int location, const bool value) {
     glUniform1f(location, value ? 1 : 0);
 }
 
-void ComputeShaders::loadMatrix(const int location, glm::mat4 matrix) {
+void ComputeShader::loadMatrix(const int location, glm::mat4 matrix) {
     glUniformMatrix4fv(location, 1, false, glm::value_ptr(matrix));
 }
 
-void ComputeShaders::loadTexture(const std::string &id, const unsigned int pos) const {
+void ComputeShader::loadTexture(const std::string &id, const unsigned int pos) const {
     loadInt(getUniformLocation(id.c_str()), (int) pos);
 }

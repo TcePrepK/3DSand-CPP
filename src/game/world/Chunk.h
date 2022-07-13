@@ -14,6 +14,7 @@
 #include "../../core/imageBuffers/ImageBuffer3D.h"
 #include "glad/glad.h"
 #include "../../elements/ElementRegistry.h"
+#include "../../core/TextureManager.h"
 //#include "ChunkBuilder.h"
 
 class Chunk {
@@ -25,7 +26,10 @@ private:
 
     ImageBuffer3D voxelImageBuffer = ImageBuffer3D(chunkScale, 0, 0, GL_R8, GL_RED, GL_UNSIGNED_BYTE);
     ImageBuffer3D bitmaskImageBuffer = ImageBuffer3D(bitmaskScale, 0, 0, GL_R8, GL_RED, GL_UNSIGNED_BYTE);
+
 public:
+    unsigned int testImageTest{};
+
     unsigned int totalElementAmount = 0;
     bool isBuild = false;
     bool updateAllBuffers = false;

@@ -13,6 +13,7 @@
 #include "../display/DisplayManager.h"
 #include "../core/SSBO.h"
 #include "../shaders/AfterEffectShader.h"
+#include "../shaders/WorldGenerationShader.h"
 
 class MasterRenderer {
 private:
@@ -42,6 +43,8 @@ private:
 //    boolean reloadResolutions = false;
 //    boolean resetFrameCounter = false;
 public :
+    const WorldGenerationShader worldGenerationShader = WorldGenerationShader();
+
     MasterRenderer();
 
     void render();

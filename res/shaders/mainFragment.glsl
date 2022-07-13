@@ -22,6 +22,8 @@ uniform bool isRenderingBitmask;
 uniform int bitmaskSize;
 uniform int lightBounceAmount;
 
+uniform int maxDistance;
+
 uniform ivec3 chunkScale;
 uint chunkAmount = chunkScale.x * chunkScale.y * chunkScale.z;
 
@@ -40,7 +42,6 @@ uniform sampler2D frameCountAttachment;
 uniform sampler2D normalAttachment;
 uniform sampler2D lightAttachment;
 
-#define maxDistance 500
 #define maxFrameCount 255
 #define sqrt2 1.414213
 #define pi 3.141592
@@ -138,6 +139,8 @@ int calculatePixelFrame(Ray ray, HitRecord record, vec2 oldScreenPixelPos, int f
     const vec3 oldRayDir = texture(rayDirAttachment, oldScreenPixelPos).rgb;
     Ray oldRay = Ray(oldCameraPos, oldRayDir, vec3(0));
     HitRecord oldRecord = FinderDDA(oldRay);
+
+    outLight = vec3(1, 0, 0);
 
     //    const float threshold = 0.1 * outDepth;
     const float threshold = length(2 / resolution * outDepth * maxDistance);

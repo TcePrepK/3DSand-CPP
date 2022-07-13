@@ -38,6 +38,10 @@ void Camera::update() {
         calculatePitch();
     }
 
+    if (GlobalVariables.dramaticZoom) {
+        desiredZoomLevel = glm::max(0.f, zoomLevel - 10);
+    }
+
     calculatePosition();
     calculateMatrices();
 }
@@ -79,7 +83,7 @@ void Camera::createProjectionMatrix() {
 void Camera::calculatePosition() {
     yaw = 180 - angleAroundPlayer;
 
-    const Vector3D center = Vector3D(2 * (int) GlobalVariables.chunkViewDistance * (int) Chunk::mapChunkSize) / 2;
+    const Vector3D center = GlobalVariables.chunkManager.getWorldScaleByChunks() * (int) Chunk::mapChunkSize / 2;
 
     const float horizontalDistance = calculateHorizontalDistance();
     const double theta = glm::radians(angleAroundPlayer);

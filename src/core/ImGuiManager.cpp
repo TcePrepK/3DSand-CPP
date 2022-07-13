@@ -61,6 +61,7 @@ void ImGuiManager::update() {
     }
     ImGui::Spacing();
 
+    ImGui::Checkbox("Dramatic Zoom", &GlobalVariables.dramaticZoom);
     ImGui::DragInt("Spatial Scale", &GlobalVariables.spatialScale, 1, 1, 10);
     ImGui::DragFloat("Spatial Sigma", &GlobalVariables.spatialSigma, 0.01, 0.01, 5);
 
@@ -71,6 +72,7 @@ void ImGuiManager::update() {
     // Ray Control
     ImGui::Checkbox("Path Tracing", &GlobalVariables.pathTracing);
     ImGui::Checkbox("Render Bitmask Borders", &GlobalVariables.drawBitmaskBorders);
+    ImGui::DragInt("Max View Distance", &GlobalVariables.maxViewDistance, 100, 100, 5000);
 
 //        if (ImGui.button("Reset Frame Counter")) {
 //            renderer.resetFrameCounter = true;
@@ -104,7 +106,7 @@ void ImGuiManager::update() {
 
     // World
 //        final
-//        Point3D worldScale = world.getWorldScale();
+//        Point3D worldScale = world.getWorldScaleByChunks();
 //        final
 //        ChunkGenerationThread generationThread = (ChunkGenerationThread) threadManager.getThread(
 //                "chunkGenerationThread");

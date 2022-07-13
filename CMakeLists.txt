@@ -26,7 +26,7 @@ add_executable(3DSand
         src/game/Camera.h src/utils/Vector2D.cpp
         src/utils/Vector2D.h src/core/Loader.cpp
         src/core/Loader.h src/core/ImGuiManager.cpp
-        src/core/inputs/Mouse.cpp src/core/inputs/Mouse.h src/core/Signal.h src/core/imageBuffers/ImageBuffer3D.cpp src/core/imageBuffers/ImageBuffer3D.h src/elements/weirds/Any.h src/elements/weirds/Empty.h src/elements/solids/moveables/Light.h src/game/world/ChunkManager.cpp src/game/world/ChunkManager.h src/core/SSBO.cpp src/core/SSBO.h src/threads/BasicThread.cpp src/threads/BasicThread.h src/threads/ChunkGenerationThread.cpp src/threads/ChunkGenerationThread.h src/elements/solids/moveables/Dirt.h src/shaders/AfterEffectShader.h src/shaders/AfterEffectShader.cpp src/elements/solids/moveables/Glass.h src/shaders/ComputeShaders.cpp src/shaders/ComputeShaders.h)
+        src/core/inputs/Mouse.cpp src/core/inputs/Mouse.h src/core/Signal.h src/core/imageBuffers/ImageBuffer3D.cpp src/core/imageBuffers/ImageBuffer3D.h src/elements/weirds/Any.h src/elements/weirds/Empty.h src/elements/solids/moveables/Light.h src/game/world/ChunkManager.cpp src/game/world/ChunkManager.h src/core/SSBO.cpp src/core/SSBO.h src/threads/BasicThread.cpp src/threads/BasicThread.h src/threads/ChunkGenerationThread.cpp src/threads/ChunkGenerationThread.h src/elements/solids/moveables/Dirt.h src/shaders/AfterEffectShader.h src/shaders/AfterEffectShader.cpp src/elements/solids/moveables/Glass.h src/shaders/ComputeShader.cpp src/shaders/ComputeShader.h src/shaders/WorldGenerationShader.cpp src/shaders/WorldGenerationShader.h)
 
 include(FetchContent)
 

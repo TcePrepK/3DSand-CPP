@@ -15,6 +15,8 @@ private:
     int scale{};
     int sigma{};
 
+    int dramaticZoom{};
+
 public:
     AfterEffectShader();
 
@@ -23,6 +25,8 @@ public:
     void loadColumnCheck(bool value) const;
 
     void loadVariables(int _scale, float _sigma) const;
+
+    void doDramaticZoom(bool value) const;
 };
 
 #endif //INC_2DSAND_AFTEREFFECTSHADER_H

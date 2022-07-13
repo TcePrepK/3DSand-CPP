@@ -40,16 +40,17 @@ void ChunkManager::updateBuffers() {
 
                 chunk.updateBuffers();
 
-                const unsigned int voxelID = chunk.getVoxelBuffer().getID();
-                const unsigned int bitmaskID = chunk.getBitmaskBuffer().getID();
+                const unsigned int voxelID = chunk.testImageTest;
+//                const unsigned int voxelID = chunk.getVoxelBuffer().getID();
+//                const unsigned int bitmaskID = chunk.getBitmaskBuffer().getID();
 
                 glGenerateTextureMipmap(voxelID);
 
                 voxelBufferIDArray[idx] = glGetTextureHandleARB(voxelID);
-                bitmaskBufferIDArray[idx] = glGetTextureHandleARB(bitmaskID);
+//                bitmaskBufferIDArray[idx] = glGetTextureHandleARB(bitmaskID);
 
                 glMakeTextureHandleResidentARB(voxelBufferIDArray[idx]);
-                glMakeTextureHandleResidentARB(bitmaskBufferIDArray[idx]);
+//                glMakeTextureHandleResidentARB(bitmaskBufferIDArray[idx]);
             }
         }
     }
@@ -163,4 +164,8 @@ std::vector<Chunk *> &ChunkManager::getChunkGenerateList() {
 
 const std::vector<std::optional<Chunk>> &ChunkManager::getChunkList() const {
     return chunkList;
+}
+
+Vector3D ChunkManager::getWorldScaleByChunks() const {
+    return {WIDTH, HEIGHT, DEPTH};
 }

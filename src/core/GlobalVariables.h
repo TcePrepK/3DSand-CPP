@@ -23,19 +23,23 @@ public:
     Mouse mouse;
     Camera camera;
 
-    bool pathTracing = true;
+    bool pathTracing = false;
     bool drawBitmaskBorders = false;
 
     // View
     std::string selectedOutput = "color";
 
-    int spatialScale = 3;
-    float spatialSigma = 0.85;
+    int spatialScale = 1; // 3
+    float spatialSigma = 0.01; // 0.85
+
+    bool dramaticZoom = false;
     // View
 
     // World
+    int maxViewDistance = 5000; // 500
+
     const unsigned int chunkViewDistance = 4;
-    ChunkManager chunkManager = ChunkManager(2 * chunkViewDistance, 2 * chunkViewDistance, 2 * chunkViewDistance);
+    ChunkManager chunkManager = ChunkManager(16 * chunkViewDistance, 2 * chunkViewDistance, 16 * chunkViewDistance);
     // World
 
     Loader loader;

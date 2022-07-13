@@ -58,7 +58,31 @@ MasterRenderer::MasterRenderer() {
 //        });
 }
 
+unsigned int lastIDX = 0;
+
 void MasterRenderer::render() {
+    std::vector<Chunk *> *generateList = &GlobalVariables.chunkManager.getChunkGenerateList();
+
+    // Compute Test
+    GlobalVariables.renderer.worldGenerationShader.start();
+
+    for (int i = 0; i < 100; i++) {
+        if (lastIDX >= generateList->size()) {
+            break;
+        }
+
+        generateList->at(lastIDX)->buildTheChunk();
+
+        GlobalVariables.renderer.worldGenerationShader.loadChunkPos(generateList->at(lastIDX)->getChunkPos());
+        glBindImageTexture(0, generateList->at(lastIDX)->testImageTest, 0, true, 0, GL_WRITE_ONLY, GL_R8);
+        glDispatchCompute(Chunk::mapChunkSize, 1, Chunk::mapChunkSize);
+        glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
+        lastIDX++;
+    }
+
+    WorldGenerationShader::stop();
+    // Compute Test
+
 //        // Binding Timer
 //        mainTimer.startTimer();
 //        // Binding Timer
@@ -74,6 +98,7 @@ void MasterRenderer::render() {
     // Load Variables
     renderShader.loadResolutions();
     renderShader.loadCameraVariables();
+    renderShader.loadMaxDistance(GlobalVariables.maxViewDistance);
 
 //        if (reloadResolutions) {
 //            renderShader.loadResolutions();
@@ -145,8 +170,9 @@ void MasterRenderer::render() {
     attachmentManager.bind();
     afterEffectAttachmentManager.get("color").bind();
 
-
     afterEffectShader.loadColumnCheck(true);
+
+    afterEffectShader.doDramaticZoom(GlobalVariables.dramaticZoom);
     drawQuad();
 
     unbindFrameBuffer();
